@@ -6,6 +6,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class TransactionController extends Controller
 {
@@ -59,15 +60,19 @@ class TransactionController extends Controller
     // Handle Onit callback webhook
     public function callback(Request $request)
     {
-        $transaction = Transaction::where('onit_reference', $request->originatorRequestId)->first();
+        Log::info('Onit callback received:', $request->all());
 
-        if ($transaction) {
-            $transaction->update([
-                'status' => $request->status === 'SUCCESS' ? 'successful' : 'failed'
-            ]);
+        if(false){
+            $transaction = Transaction::where('onit_reference', $request->originatorRequestId)->first();
+
+            if ($transaction) {
+                $transaction->update([
+                    'status' => $request->status === 'SUCCESS' ? 'successful' : 'failed'
+                ]);
+            }
+
+            return response()->json(['message' => 'Callback processed']);
         }
-
-        return response()->json(['message' => 'Callback processed']);
     }
 
     public function authenticate(): ?string
