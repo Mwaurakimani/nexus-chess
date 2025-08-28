@@ -14,7 +14,7 @@ Route::post('/transactions/deposit', [TransactionController::class, 'deposit'])
     ->name('transactions.deposit')
     ->withoutMiddleware([VerifyCsrfToken::class]);
 
-Route::post('/onit/deposit/callback', [TransactionController::class, 'callback'])
+Route::post('/onit/deposit/callback', [TransactionController::class, 'deposit_callback'])
     ->name('onit.deposit.callback')
     ->withoutMiddleware([VerifyCsrfToken::class]);
 
@@ -22,7 +22,7 @@ Route::post('/transactions/withdrawal', [TransactionController::class, 'withdraw
     ->name('transactions.withdrawal')
     ->withoutMiddleware([VerifyCsrfToken::class]);
 
-Route::post('/onit/withdrawal/callback', [TransactionController::class, 'callback'])
+Route::post('/onit/withdrawal/callback', [TransactionController::class, 'withdrawal_callback'])
     ->name('onit.withdrawal.callback')
     ->withoutMiddleware([VerifyCsrfToken::class]);
 
